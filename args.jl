@@ -1,0 +1,2 @@
+arglist = ARGS
+println(arglist)

@@ -1,0 +1,4 @@
+┌ Info: Une information
+└ @ Main /home/hamdy/Documents/julia_livre/Softwares/loggerfile.jl:9
+┌ Warning: Une alerte warning
+└ @ Main /home/hamdy/Documents/julia_livre/Softwares/loggerfile.jl:10
