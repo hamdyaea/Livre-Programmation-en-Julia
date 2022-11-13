@@ -21,7 +21,7 @@ function joueur_start()
     # Comparaisons entre le nombre de l'ordinateur et celui du joueur
     # Si ce n'est pas égale, cette fonction est rappelée.
     if usernum < ordinum
-        println("Votre numbre est trop petit")
+        println("Votre nombre est trop petit")
         joueur_start()
 
     elseif usernum > ordinum
