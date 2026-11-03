@@ -1,40 +1,26 @@
-# Importons la librairie Random
+# Developer: Hamdy Abou El Anein
+# Contact: hamdy.aea@protonmail.com
 using Random
 
-# Création de la fonction ordi_start()
-function ordi_start()
-    global ordinum
-
-    # l'ordinateur choisi un nombre de 1 à 20
-    ordinum = shuffle!(collect(1:20))
-    ordinum = ordinum[1]
-end
-
-# Création de la fonction joueur_start()
-function joueur_start()
-    # le joueur entre un nombre de 1 à 20
-    println("Entrez un nombre de 1 à 20.")
-    usernum = readline()
-    # On change le caractère de string à integer
-    usernum = parse(Int64, usernum)
-
-    # Comparaisons entre le nombre de l'ordinateur et celui du joueur
-    # Si ce n'est pas égale, cette fonction est rappelée.
-    if usernum < ordinum
-        println("Votre nombre est trop petit")
-        joueur_start()
-
-    elseif usernum > ordinum
-        println("Votre nombre est trop grand")
-        joueur_start()
-
-
-    elseif ordinum == usernum
-        println("Bravo, vous avez trouvé le nombre !")
+function jouer(input::IO=stdin, output::IO=stdout; secret::Int=rand(1:20))
+    1 <= secret <= 20 || throw(ArgumentError("secret must be between 1 and 20"))
+    while !eof(input)
+        println(output, "Entrez un nombre de 1 à 20.")
+        guess = tryparse(Int, strip(readline(input)))
+        if guess === nothing || !(1 <= guess <= 20)
+            println(output, "Veuillez entrer un entier de 1 à 20.")
+        elseif guess < secret
+            println(output, "Votre nombre est trop petit")
+        elseif guess > secret
+            println(output, "Votre nombre est trop grand")
+        else
+            println(output, "Bravo, vous avez trouvé le nombre !")
+            return true
+        end
     end
-
+    return false
 end
 
-# appel des fonctions
-ordi_start()
-joueur_start()
+if abspath(PROGRAM_FILE) == @__FILE__
+    jouer()
+end

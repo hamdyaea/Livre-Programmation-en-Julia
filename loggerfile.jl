@@ -1,15 +1,17 @@
+# Developer: Hamdy Abou El Anein
+# Contact: hamdy.aea@protonmail.com
 using Logging
 
-file = open("log.txt", "w+")
+function log_example(path="log.txt")
+    open(path, "a") do stream
+        with_logger(SimpleLogger(stream)) do
+            @info "Une information"
+            @warn "Une alerte warning"
+            @debug "Message de debug"
+        end
+    end
+end
 
-logger = SimpleLogger(file)
-
-global_logger(logger)
-
-@info("Une information")
-@warn("Une alerte warning")
-@debug("Message de debug")
-
-
-
-close(file)
+if abspath(PROGRAM_FILE) == @__FILE__
+    log_example()
+end
